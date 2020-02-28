@@ -1,26 +1,50 @@
-
 const Translate = {
+  button: document.querySelector('.btn'),
+  textarea: document.querySelector('.textarea'),
+  count: {},
+  keys: [],
 
-    button: document.querySelector('.btn'),
-    textarea: document.querySelector('.textarea'),
+  getText () {
+    const text = Translate.textarea.value.toLowerCase().replace(/[^\w\s]/g, '')
+    const words = text.split(' ').sort()
 
-    getText(){
+    for (let i = 0; i < words.length; i++) {
+      let word = words[i]
+      if (Translate.count[word] === undefined) {
+        Translate.count[word] = 1
+        Translate.keys.push(word)
+      } else {
+        Translate.count[word] = Translate.count[word] + 1
+      }
+    }
 
-        
-        
-        let results = {
-            word: '',
-            times: 0
-        }
-        const text = Translate.textarea.value.toLowerCase().replace(/[^\w\s]/g, '')
-        const words = text.split(' ')
-        words.forEach(word =>{
+    Translate.keys.sort(Translate.compare)
 
-            if(!word) return alert('Some word is needed')
+    for (let i = 0; i < Translate.keys.length; i++) {
+      let key = Translate.keys[i]
+      Translate.setupElements(key, Translate.count[key])
+    }
+  },
 
-        })
-        
-        
+  //Organize the keys DESC
+  compare (value1, value2) {
+    let countA = Translate.count[value1]
+    let countB = Translate.count[value2]
+    return countB - countA
+  },
 
-    }   
+  setupElements (key, count) {
+    const tbody = document.querySelector('tbody')
+
+    const tr = document.createElement('tr')
+    const th = document.createElement('th')
+    const td = document.createElement('td')
+  
+    th.setAttribute('scope', 'row')
+    tr.appendChild(th)
+    tr.appendChild(td)
+    tbody.appendChild(tr)
+
+    console.log(tbody)
+  }
 }
