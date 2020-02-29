@@ -39,12 +39,19 @@ const Translate = {
     const tr = document.createElement('tr')
     const th = document.createElement('th')
     const td = document.createElement('td')
-  
-    th.setAttribute('scope', 'row')
-    tr.appendChild(th)
-    tr.appendChild(td)
-    tbody.appendChild(tr)
 
-    console.log(tbody)
+    compactResult = []
+    for (let i=0; i < 5; i++){
+      compactResult.push(Translate.keys[i])
+    }
+
+    for (let i = 0; i < compactResult.length; i++) {
+      th.setAttribute('scope', 'row')
+      th.innerHTML = key
+      td.innerHTML = count
+      tr.appendChild(th)
+      tr.appendChild(td)
+      tbody.appendChild(tr)
+    }
   }
 }
